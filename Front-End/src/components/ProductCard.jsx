@@ -1,38 +1,38 @@
 import { Link } from "react-router-dom"
+import "../styles/ProductCard.css"
 
 const ProductCard = ({ product }) => {
 
   return (
 
-    <div className="col-md-3 mb-4">
+    <div className="product-card">
 
-      <div className="card h-100">
+      <div className="product-image-container">
 
         <img
           src={product.image}
-          className="card-img-top"
           alt={product.name}
-          style={{ height: "200px", objectFit: "cover" }}
+          className="product-image"
         />
 
-        <div className="card-body">
+      </div>
 
-          <h5 className="card-title">
-            {product.name}
-          </h5>
+      <div className="product-info">
 
-          <p className="card-text">
-            ₹{product.price}
-          </p>
+        <h3 className="product-name">
+          {product.name}
+        </h3>
 
-          <Link
-            to={`/product/${product._id}`}
-            className="btn btn-primary"
-          >
-            View Details
-          </Link>
+        <p className="product-price">
+          ₹{product.price}
+        </p>
 
-        </div>
+        <Link
+          to={`/product/${product._id}`}
+          className="product-btn"
+        >
+          View Details
+        </Link>
 
       </div>
 

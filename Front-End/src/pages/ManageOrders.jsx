@@ -19,6 +19,14 @@ const ManageOrders = () => {
     fetchOrders()
   }
 
+  // color map for order status
+  const statusColor = {
+    processing: "bg-warning",
+    shipped: "bg-primary",
+    delivered: "bg-success",
+    cancelled: "bg-danger"
+  }
+
   return (
 
     <div>
@@ -33,46 +41,46 @@ const ManageOrders = () => {
 
             <h5>Order ID: {order._id}</h5>
 
-                <div className="row mb-3">
+            <div className="row mb-3">
 
-                <div className="col-md-6 mb-2">
-                    <strong>Order ID:</strong>
-                    <div>{order._id}</div>
-                </div>
+              <div className="col-md-6 mb-2">
+                <strong>Order ID:</strong>
+                <div>{order._id}</div>
+              </div>
 
-                <div className="col-md-6 mb-2">
-                    <strong>Order Date:</strong>
-                    <div>{new Date(order.createdAt).toLocaleString()}</div>
-                </div>
+              <div className="col-md-6 mb-2">
+                <strong>Order Date:</strong>
+                <div>{new Date(order.createdAt).toLocaleString()}</div>
+              </div>
 
-                <div className="col-md-6 mb-2">
-                    <strong>Total Amount:</strong>
-                    <div>₹{order.totalAmount}</div>
-                </div>
+              <div className="col-md-6 mb-2">
+                <strong>Total Amount:</strong>
+                <div>₹{order.totalAmount}</div>
+              </div>
 
-                <div className="col-md-6 mb-2">
-                    <strong>Payment Status:</strong>
-                    <div>
-                    <span className={`badge ${
-                        order.paymentStatus === "paid"
-                        ? "bg-success"
-                        : "bg-warning"
-                    }`}>
-                        {order.paymentStatus}
-                    </span>
-                    </div>
+              <div className="col-md-6 mb-2">
+                <strong>Payment Status:</strong>
+                <div>
+                  <span className={`badge ${
+                    order.paymentStatus === "paid"
+                      ? "bg-success"
+                      : "bg-warning"
+                  }`}>
+                    {order.paymentStatus}
+                  </span>
                 </div>
+              </div>
 
-                <div className="col-md-6 mb-2">
-                    <strong>Order Status:</strong>
-                    <div>
-                    <span className="badge bg-info">
-                        {order.orderStatus}
-                    </span>
-                    </div>
+              <div className="col-md-6 mb-2">
+                <strong>Order Status:</strong>
+                <div>
+                  <span className={`badge ${statusColor[order.orderStatus]}`}>
+                    {order.orderStatus.charAt(0).toUpperCase() + order.orderStatus.slice(1)}
+                  </span>
                 </div>
+              </div>
 
-                </div>
+            </div>
 
             <div className="mb-3">
 
@@ -94,35 +102,6 @@ const ManageOrders = () => {
               </select>
 
             </div>
-
-            {/* <hr /> */}
-
-            {/* <h6>Products</h6> */}
-
-            {/* {order.products.map(item => (
-
-              <div
-                key={item.product._id}
-                className="d-flex align-items-center mb-2"
-              >
-
-                <img
-                  src={item.product.image}
-                  alt={item.product.name}
-                  width="50"
-                  className="me-3"
-                />
-
-                <div>
-                  <div>{item.product.name}</div>
-                  <small>
-                    ₹{item.product.price} × {item.quantity}
-                  </small>
-                </div>
-
-              </div>
-
-            ))} */}
 
           </div>
 

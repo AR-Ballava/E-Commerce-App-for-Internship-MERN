@@ -30,8 +30,13 @@ const productSchema = new mongoose.Schema(
         default: 0
     }
 
-},
-{ timestamps: true }
-);
+},{ timestamps: true });
+
+// TEXT INDEX FOR SEARCH
+productSchema.index({
+  name: "text",
+  description: "text",
+  category: "text"
+});
 
 module.exports = mongoose.model("Product", productSchema);

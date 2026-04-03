@@ -1,0 +1,58 @@
+.home-container{
+  max-width:1200px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.home-title{
+  margin-bottom:30px;
+  font-size:28px;
+  font-weight:600;
+  color:#333;
+}
+
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+}
+
+.home-message{
+  min-height:60vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  color:#666;
+}
+
+/* Responsive Design */
+
+@media (max-width:1024px){
+
+  .products-grid{
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  }
+
+}
+
+@media (max-width:768px){
+
+  .home-title{
+    font-size:24px;
+    text-align:center;
+  }
+
+  .home-container{
+    padding:30px 15px;
+  }
+
+}
+
+@media (max-width:480px){
+
+  .products-grid{
+    grid-template-columns:1fr;
+  }
+
+}

@@ -103,34 +103,55 @@ const createProduct = async (req, res) => {
 // UPDATE PRODUCT (ADMIN)
 const updateProduct = async (req, res) => {
 
-    try {
+  try {
 
-        const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id);
 
-        if (!product) {
-            return res.status(404).json({
-                message: "Product not found"
-            });
-        }
+    if (!product) {
+      return res.status(404).json({
+        message: "Product not found"
+      });
+    }
 
-        product.name = req.body.name || product.name;
-        product.description = req.body.description || product.description;
-        product.price = req.body.price || product.price;
-        product.image = req.body.image || product.image;
-        product.category = req.body.category || product.category;
-        product.stock = req.body.stock || product.stock;
+    product.name = req.body.name || product.name;
+    product.description = req.body.description || product.description;
+    product.price = req.body.price || product.price;
+    product.category = req.body.category || product.category;
+    product.stock = req.body.stock || product.stock;
 
-        const updatedProduct = await product.save();
+    // If new image uploaded
+    if (req.file) {
 
-        res.json(updatedProduct);
+      const result = await new Promise((resolve, reject) => {
 
-    } catch (error) {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: "ecommerce_products" },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        );
 
-        res.status(500).json({
-            message: "Server Error"
-        });
+        stream.end(req.file.buffer);
+
+      });
+
+      product.image = result.secure_url;
 
     }
+
+    const updatedProduct = await product.save();
+
+    res.json(updatedProduct);
+
+  } catch (error) {
+
+    console.error(error);
+    res.status(500).json({
+      message: "Server Error"
+    });
+
+  }
 
 };
 
@@ -165,10 +186,42 @@ const deleteProduct = async (req, res) => {
 };
 
 
+
+//Search Product
+const searchProducts = async (req, res) => {
+
+  try {
+
+    const query = req.query.q;
+
+    if (!query) {
+      return res.json([]);
+    }
+
+    const products = await Product.find(
+      { $text: { $search: query } },
+      { score: { $meta: "textScore" } }
+    ).sort({ score: { $meta: "textScore" } });
+
+    res.json(products);
+
+  } catch (error) {
+
+    console.error("Search Error:", error);
+
+    res.status(500).json({
+        message: "Search failed"
+    });
+
+    }
+
+};
+
 module.exports = {
     getProducts,
     getProductById,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    searchProducts
 };

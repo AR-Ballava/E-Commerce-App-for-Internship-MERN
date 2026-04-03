@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getProducts } from "../services/productService"
 import ProductCard from "../components/ProductCard"
+import "../styles/Home.css"
 
 const Home = () => {
 
@@ -34,20 +35,20 @@ const Home = () => {
   }, [])
 
   if (loading) {
-    return <h2>Loading products...</h2>
+    return <div className="home-message">Loading products...</div>
   }
 
   if (products.length === 0) {
-    return <h2>No products available</h2>
+    return <div className="home-message">No products available</div>
   }
 
   return (
 
-    <div>
+    <div className="home-container">
 
-      <h2 className="mb-4">Products</h2>
+      <h2 className="home-title">Products</h2>
 
-      <div className="row">
+      <div className="products-grid">
 
         {products.map((product) => (
 

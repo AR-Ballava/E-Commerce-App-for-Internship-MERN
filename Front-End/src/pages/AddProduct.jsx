@@ -1,5 +1,6 @@
 import { useState } from "react"
 import API from "../services/api"
+import "../styles/AddProduct.css"
 
 const AddProduct = () => {
 
@@ -28,18 +29,17 @@ const AddProduct = () => {
       await API.post("/products", formData)
 
       alert("Product added successfully")
-        setName("")
-        setDescription("")
-        setPrice("")
-        setStock("")
-        setCategory("")
-        setImage(null)
 
+      setName("")
+      setDescription("")
+      setPrice("")
+      setStock("")
+      setCategory("")
+      setImage(null)
 
     } catch (error) {
 
       console.error(error)
-
       alert("Failed to add product")
 
     }
@@ -48,55 +48,58 @@ const AddProduct = () => {
 
   return (
 
-    <div>
+    <div className="add-product-page">
 
-      <h2>Add Product</h2>
+      <div className="add-product-card">
 
-      <form onSubmit={handleSubmit}>
+        <h2 className="title">Add New Product</h2>
 
-        <input
-          className="form-control mb-3"
-          placeholder="Name"
-          onChange={(e)=>setName(e.target.value)}
-        />
+        <form onSubmit={handleSubmit} className="product-form">
 
-        <textarea
-          className="form-control mb-3"
-          placeholder="Description"
-          onChange={(e)=>setDescription(e.target.value)}
-        />
+          <input
+            value={name}
+            placeholder="Product Name"
+            onChange={(e)=>setName(e.target.value)}
+          />
 
-        <input
-          type="number"
-          className="form-control mb-3"
-          placeholder="Price"
-          onChange={(e)=>setPrice(e.target.value)}
-        />
+          <textarea
+            value={description}
+            placeholder="Product Description"
+            onChange={(e)=>setDescription(e.target.value)}
+          />
 
-        <input
-          type="number"
-          className="form-control mb-3"
-          placeholder="Stock"
-          onChange={(e)=>setStock(e.target.value)}
-        />
+          <input
+            type="number"
+            value={price}
+            placeholder="Price"
+            onChange={(e)=>setPrice(e.target.value)}
+          />
 
-        <input
-          className="form-control mb-3"
-          placeholder="Category"
-          onChange={(e)=>setCategory(e.target.value)}
-        />
+          <input
+            type="number"
+            value={stock}
+            placeholder="Stock Quantity"
+            onChange={(e)=>setStock(e.target.value)}
+          />
 
-        <input
-          type="file"
-          className="form-control mb-3"
-          onChange={(e)=>setImage(e.target.files[0])}
-        />
+          <input
+            value={category}
+            placeholder="Category"
+            onChange={(e)=>setCategory(e.target.value)}
+          />
 
-        <button className="btn btn-primary">
-          Add Product
-        </button>
+          <input
+            type="file"
+            onChange={(e)=>setImage(e.target.files[0])}
+          />
 
-      </form>
+          <button type="submit" className="submit-btn">
+            Add Product
+          </button>
+
+        </form>
+
+      </div>
 
     </div>
 

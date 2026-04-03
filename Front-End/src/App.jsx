@@ -13,8 +13,10 @@ import AdminRoute from "./routes/AdminRoute"
 import AdminDashboard from "./pages/AdminDashboard"
 import AddProduct from "./pages/AddProduct"
 import ManageOrders from "./pages/ManageOrders"
-
+import ManageProducts from "./pages/ManageProducts"
+import EditProduct from "./pages/EditProduct"
 import ProtectedRoute from "./routes/ProtectedRoute"
+import SearchResults from "./pages/SearchResults"
 
 const App = () => {
 
@@ -36,6 +38,8 @@ const App = () => {
           <Route path="/verify-otp" element={<VerifyOTP />} />
 
           <Route path="/product/:id" element={<ProductDetails />} />
+
+          <Route path="/search" element={<SearchResults />} />
 
           <Route
             path="/cart"
@@ -87,6 +91,24 @@ const App = () => {
             element={
               <AdminRoute>
                 <ManageOrders/>
+              </AdminRoute>
+            }
+          />
+
+          <Route
+            path="/admin/products"
+            element={
+              <AdminRoute>
+                <ManageProducts/>
+              </AdminRoute>
+            }
+            />
+
+            <Route
+            path="/admin/edit-product/:id"
+            element={
+              <AdminRoute>
+                <EditProduct/>
               </AdminRoute>
             }
           />

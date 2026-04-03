@@ -1,28 +1,44 @@
 import { Link } from "react-router-dom"
+import "../styles/AdminDashboard.css"
 
 const AdminDashboard = () => {
 
   return (
 
-    <div>
+    <div className="admin-dashboard">
 
-      <h2 className="mb-4">Admin Dashboard</h2>
+      <div className="dashboard-card">
 
-      <div className="d-flex gap-3">
+        <h2 className="dashboard-title">Admin Dashboard</h2>
+        <p className="dashboard-subtitle">
+          Manage your store products and orders
+        </p>
 
-        <Link
-          to="/admin/add-product"
-          className="btn btn-primary"
-        >
-          Add Product
-        </Link>
+        <div className="dashboard-actions">
 
-        <Link
-          to="/admin/orders"
-          className="btn btn-success"
-        >
-          Manage Orders
-        </Link>
+          <Link
+            to="/admin/add-product"
+            className="dashboard-btn primary-btn"
+          >
+            Add Product
+          </Link>
+    
+          <Link
+            to="/admin/products"
+            className="btn btn-info"
+            >
+            Manage Products
+          </Link>
+
+          <Link
+            to="/admin/orders"
+            className="dashboard-btn success-btn"
+          >
+            Manage Orders
+          </Link>
+
+
+        </div>
 
       </div>
 
